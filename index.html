@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BKL Surprise</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff00cc, #3333ff, #00ffcc);
+      background-size: 600% 600%;
+      animation: gradientMove 8s ease infinite;
+      color: #fff;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    #question {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px 30px 60px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #fff;
+      max-width: 600px;
+      width: 90vw;
+      position: relative;
+      user-select: none;
+      min-height: 250px;
+    }
+
+    h1 {
+      font-size: 6vw;
+      margin-bottom: 50px;
+      text-shadow: 0 0 10px #ff0, 0 0 20px #f0f;
+    }
+
+    #btn-container {
+      position: relative;
+      height: 70px;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #ff0055, #00ffff, #ffff00);
+      background-size: 400% 400%;
+      animation: btnMove 5s ease infinite;
+      color: #111;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.4em;
+      box-shadow: 0 0 15px #fff;
+      transition: all 0.3s ease-in-out;
+      user-select: none;
+      min-width: 120px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #yes-btn {
+      left: 20%;
+      position: absolute;
+    }
+
+    #no-btn {
+      left: 65%;
+      position: absolute;
+    }
+
+    @keyframes btnMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    #final-message {
+      display: none;
+      font-size: 1.4em;
+      line-height: 1.8;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 25px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #0ff;
+      max-width: 600px;
+      width: 90vw;
+      margin-top: 30px;
+      user-select: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 10vw;
+        margin-bottom: 30px;
+      }
+
+      #btn-container {
+        height: auto;
+      }
+
+      .btn {
+        position: static;
+        display: inline-block;
+        transform: none;
+        margin: 0 15px 15px;
+        font-size: 1.2em;
+        padding: 12px 25px;
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="question">
+    <h1>Mujhe sach bata... main best hoon na? 😏</h1>
+    <div id="btn-container">
+      <button class="btn" id="yes-btn" onclick="showMessage()">Haan</button>
+      <button class="btn" id="no-btn" onmousemove="moveButton()">Nahi</button>
+    </div>
+  </div>
+
+  <div id="final-message">
+    <h1>🎉 Behen Kii Lodi 🎉</h1>
+    <p>
+      Behen ki lodi happppppyyyy birthday...🥸<br /><br />
+      Kuttiiii kamini chutiyaaaa .. hey bhagwan akal de issse.. hari ommm ...🙂<br /><br />
+      Moti bhenjsh aur budhe ke taraf se website hbd wish🫂<br /><br />
+      Jyada khiki mat kar lauda mun mai ghish dungi🙂‍↔<br /><br />
+      Ab jaaa assignment kar💋
+    </p>
+  </div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('question').style.display = 'none';
+      document.getElementById('final-message').style.display = 'block';
+    }
+
+    function moveButton() {
+      const noBtn = document.getElementById('no-btn');
+      const questionBox = document.getElementById('question');
+
+      // Because noBtn is positioned absolute inside #question which is relative,
+      // its offsetParent is #question, so we use clientWidth/clientHeight on #question
+
+      const qWidth = questionBox.clientWidth;
+      const qHeight = questionBox.clientHeight;
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      // Padding to keep button fully inside
+      const padding = 10;
+
+      // Max left and top so button stays fully visible
+      const maxX = qWidth - btnWidth - padding;
+      const maxY = qHeight - btnHeight - padding;
+
+      // Random position inside bounds with padding
+      const randomX = Math.random() * maxX + padding;
+      const randomY = Math.random() * maxY + padding;
+
+      noBtn.style.left = randomX + 'px';
+      noBtn.style.top = randomY + 'px';
+      noBtn.style.transform = 'translate(0, 0)';
+    }
+  </script>
+</body>
+</html>
