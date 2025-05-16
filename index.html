@@ -112,6 +112,7 @@
       user-select: none;
     }
 
+    /* RESPONSIVE for phones */
     @media (max-width: 600px) {
       h1 {
         font-size: 10vw;
@@ -119,17 +120,24 @@
       }
 
       #btn-container {
-        height: auto;
+        position: static !important; /* remove relative */
+        height: auto !important;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
       }
 
       .btn {
-        position: static;
-        display: inline-block;
-        transform: none;
-        margin: 0 15px 15px;
-        font-size: 1.2em;
-        padding: 12px 25px;
-        min-width: 100%;
+        position: static !important;
+        transform: none !important;
+        width: 80vw;
+        min-width: unset !important;
+        animation: none !important;
+      }
+
+      #no-btn {
+        pointer-events: auto; /* no dodging on mobile */
       }
     }
   </style>
@@ -161,25 +169,21 @@
     }
 
     function moveButton() {
+      if(window.innerWidth <= 600) return; // disable on mobile
+
       const noBtn = document.getElementById('no-btn');
       const questionBox = document.getElementById('question');
-
-      // Because noBtn is positioned absolute inside #question which is relative,
-      // its offsetParent is #question, so we use clientWidth/clientHeight on #question
 
       const qWidth = questionBox.clientWidth;
       const qHeight = questionBox.clientHeight;
       const btnWidth = noBtn.offsetWidth;
       const btnHeight = noBtn.offsetHeight;
 
-      // Padding to keep button fully inside
       const padding = 10;
 
-      // Max left and top so button stays fully visible
       const maxX = qWidth - btnWidth - padding;
       const maxY = qHeight - btnHeight - padding;
 
-      // Random position inside bounds with padding
       const randomX = Math.random() * maxX + padding;
       const randomY = Math.random() * maxY + padding;
 
