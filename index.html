@@ -1,135 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BKL Surprise</title>
-    <style>
-        body {
-            background: linear-gradient(135deg, #ff00cc, #3333ff, #00ffcc);
-            background-size: 600% 600%;
-            animation: gradientMove 8s ease infinite;
-            color: #fff;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            text-align: center;
-            overflow: hidden;
-        }
+<script>
+    function showMessage() {
+        document.getElementById('question').style.display = 'none';
+        document.getElementById('final-message').style.display = 'block';
+    }
 
-        @keyframes gradientMove {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+    function moveButton() {
+        const noBtn = document.getElementById('no-btn');
+        const questionBox = document.getElementById('question');
 
-        #question {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px #fff;
-            max-width: 500px;
-        }
+        // On small screens, skip moving
+        if (window.innerWidth <= 600) return;
 
-        h1 {
-            font-size: 7vw;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #ff0, 0 0 20px #f0f;
-        }
+        const qRect = questionBox.getBoundingClientRect();
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
 
-        .btn {
-            background: linear-gradient(45deg, #ff0055, #00ffff, #ffff00);
-            background-size: 400% 400%;
-            animation: btnMove 5s ease infinite;
-            color: #111;
-            padding: 15px 30px;
-            margin: 15px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 0 15px #fff;
-            transition: all 0.3s ease-in-out;
-            position: relative;
-        }
+        // Calculate safe area inside the question box
+        const maxX = qRect.width - btnWidth;
+        const maxY = qRect.height - btnHeight;
 
-        @keyframes btnMove {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
 
-        #no-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        #final-message {
-            display: none;
-            font-size: 1.4em;
-            line-height: 1.8;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px #0ff;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 10vw;
-            }
-
-            .btn {
-                font-size: 1em;
-                padding: 12px 20px;
-            }
-
-            #final-message {
-                font-size: 1.1em;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="question">
-        <h1>Mai Best hun na?😏</h1>
-        <button class="btn" onclick="showMessage()">YES</button>
-        <button class="btn" id="no-btn" onmouseover="moveButton()">NO</button>
-    </div>
-
-    <div id="final-message">
-        <h1>🎉 Behen Kii Lodi 🎉</h1>
-        <p>
-            Behen ki lodi happppppyyyy birthday...🥸<br><br>
-            Kuttiiii kamini chutiyaaaa .. hey bhagwan akal de issse.. hari ommm ...🙂<br><br>
-            Moti bhenjsh aur budhe ke taraf se website hbd wish🫂<br><br>
-            Jyada khiki mat kar lauda mun mai ghish dungi🙂‍↔<br><br>
-            Ab jaaa assignment kar💋
-        </p>
-    </div>
-
-    <script>
-        function showMessage() {
-            document.getElementById('question').style.display = 'none';
-            document.getElementById('final-message').style.display = 'block';
-        }
-
-        function moveButton() {
-            const noBtn = document.getElementById('no-btn');
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
-        }
-    </script>
-
-</body>
-</html>
+        // Set position relative to question box
+        noBtn.style.position = 'absolute';
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+        noBtn.style.transform = 'none'; // Reset transform
+    }
+</script>
